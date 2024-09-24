@@ -75,6 +75,16 @@ func (c *Client) InternalTxByAddress(address string, startBlock *int, endBlock *
 	return
 }
 
+// InternalTxForTransaction gets a list of "internal" transactions for a single transaction
+func (c *Client) InternalTxForTransaction(hash string) (txs []InternalTx, err error) {
+	param := M{
+		"txhash": hash,
+	}
+
+	err = c.call("account", "txlistinternal", param, &txs)
+	return
+}
+
 // ERC20Transfers get a list of "erc20 - token transfer events" by
 // contract address and/or from/to address.
 //
